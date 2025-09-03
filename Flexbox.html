@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actividad 7 - Flexbox</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eef6fd;
+    }
+
+    header {
+      background: #1e73be;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    /* Contenedor principal con Flexbox */
+    .flex {
+      display: flex;
+      height: calc(100vh - 70px); /* Resto de la pantalla menos el header */
+    }
+
+    nav {
+      background: #2d89cf;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 230px;
+    }
+
+    nav button {
+      background: #1e73be;
+      border: none;
+      color: white;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    nav button:hover {
+      background: #155d9c;
+    }
+
+    main {
+      flex-grow: 1; /* Ocupa todo el espacio restante */
+      background: white;
+      padding: 30px;
+      overflow-y: auto;
+      border-radius: 8px 0 0 8px;
+    }
+
+    main h2 {
+      margin-top: 0;
+      color: #1e73be;
+    }
+  </style>
+</head>
+<body>
+  <header>Actividad 7 - Flexbox</header>
+
+  <div class="flex">
+    <nav>
+      <button onclick="mostrar('funcionamiento')">Funcionamiento</button>
+      <button onclick="mostrar('casos')">Casos de Uso</button>
+      <button onclick="mostrar('ventajas')">Ventajas</button>
+      <button onclick="mostrar('desventajas')">Desventajas</button>
+    </nav>
+
+    <main id="contenido">
+      <h2>Bienvenido</h2>
+      <p>Seleccioná un apartado en el menú de la izquierda para ver la información sobre <strong>Flexbox</strong>.</p>
+    </main>
+  </div>
+
+  <script>
+    function mostrar(seccion) {
+      const contenido = document.getElementById("contenido");
+      let html = "";
+
+      if (seccion === "funcionamiento") {
+        html = `
+          <h2>Funcionamiento</h2>
+          <p>Flexbox es un modelo de diseño en CSS que organiza elementos en una única dimensión. 
+          Permite distribuir el espacio automáticamente y alinear ítems incluso cuando tienen tamaños dinámicos. 
+          Se basa en un <strong>contenedor flexible</strong> y sus <strong>ítems</strong>, controlando dirección, 
+          crecimiento, reducción y orden visual.</p>
+        `;
+      } else if (seccion === "casos") {
+        html = `
+          <h2>Casos de Uso</h2>
+          <ul>
+            <li>Menús de navegación horizontales o verticales.</li>
+            <li>Barras de herramientas con logotipos y botones.</li>
+            <li>Centrado de contenido vertical y horizontal.</li>
+            <li>Diseño de tarjetas adaptables.</li>
+            <li>Componentes con crecimiento flexible en paneles dinámicos.</li>
+          </ul>
+        `;
+      } else if (seccion === "ventajas") {
+        html = `
+          <h2>Ventajas</h2>
+          <ul>
+            <li>Distribución dinámica del espacio entre elementos.</li>
+            <li>Permite reordenar visualmente sin cambiar el HTML.</li>
+            <li>Espaciado automático con propiedades como <code>space-between</code>.</li>
+            <li>Facilita diseños responsivos simples.</li>
+          </ul>
+        `;
+      } else if (seccion === "desventajas") {
+        html = `
+          <h2>Desventajas</h2>
+          <ul>
+            <li>Limitación unidimensional (solo filas o columnas).</li>
+            <li>Problemas en navegadores antiguos como Internet Explorer.</li>
+            <li>Complejo de mantener en estructuras con muchos contenedores anidados.</li>
+          </ul>
+        `;
+      }
+
+      contenido.innerHTML = html;
+    }
+  </script>
+</body>
+</html>
