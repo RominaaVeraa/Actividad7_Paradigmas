@@ -3,130 +3,162 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Actividad 7 - Flexbox</title>
+  <title>Flexbox</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #eef6fd;
+      background: #f0f8ff;
     }
 
     header {
-      background: #1e73be;
+      background: #2c3e50;
       color: white;
       padding: 20px;
       text-align: center;
-      font-size: 22px;
-      font-weight: bold;
+      font-size: 24px;
     }
 
     /* Contenedor principal con Flexbox */
-    .flex {
+    .container {
       display: flex;
-      height: calc(100vh - 70px); /* Resto de la pantalla menos el header */
+      height: calc(100vh - 80px);
     }
 
-    nav {
-      background: #2d89cf;
+    /* Sidebar */
+    .sidebar {
+      background: #3498db;
+      width: 200px;
       padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      width: 230px;
+      gap: 10px;
     }
 
-    nav button {
-      background: #1e73be;
-      border: none;
+    .btn {
+      background: #2980b9;
       color: white;
-      padding: 12px;
-      border-radius: 6px;
-      font-size: 16px;
+      border: none;
+      padding: 15px;
+      border-radius: 5px;
       cursor: pointer;
-      transition: background 0.3s;
+      font-size: 14px;
+      transition: all 0.3s;
     }
 
-    nav button:hover {
-      background: #155d9c;
+    .btn:hover {
+      background: #1f618d;
+      transform: translateY(-2px);
     }
 
-    main {
-      flex-grow: 1; /* Ocupa todo el espacio restante */
+    /* Contenido principal - usa flex-grow */
+    .content {
+      flex-grow: 1;
       background: white;
       padding: 30px;
-      overflow-y: auto;
-      border-radius: 8px 0 0 8px;
+      margin: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 
-    main h2 {
+    .content h2 {
+      color: #2c3e50;
       margin-top: 0;
-      color: #1e73be;
+    }
+
+    .features {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .card {
+      flex: 1;
+      background: #ecf0f1;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .card h3 {
+      color: #3498db;
+      margin-top: 0;
     }
   </style>
 </head>
 <body>
-  <header>Actividad 7 - Flexbox</header>
+  <header>Flexbox</header>
 
-  <div class="flex">
-    <nav>
-      <button onclick="mostrar('funcionamiento')">Funcionamiento</button>
-      <button onclick="mostrar('casos')">Casos de Uso</button>
-      <button onclick="mostrar('ventajas')">Ventajas</button>
-      <button onclick="mostrar('desventajas')">Desventajas</button>
-    </nav>
+  <div class="container">
+    <div class="sidebar">
+      <button class="btn" onclick="cambiarContenido('intro')">Introducción</button>
+      <button class="btn" onclick="cambiarContenido('propiedades')">Propiedades</button>
+      <button class="btn" onclick="cambiarContenido('ejemplos')">Ejemplos</button>
+    </div>
 
-    <main id="contenido">
-      <h2>Bienvenido</h2>
-      <p>Seleccioná un apartado en el menú de la izquierda para ver la información sobre <strong>Flexbox</strong>.</p>
-    </main>
+    <div class="content" id="contenido">
+      <h2>¡Actividad 7!</h2>
+      <p>Este layout usa <strong>display: flex</strong> para organizar el sidebar y el contenido principal.</p>
+      
+      <div class="features">
+        <div class="card">
+          <h3>Flexible</h3>
+          <p>Se adapta automáticamente al tamaño de pantalla</p>
+        </div>
+        <div class="card">
+          <h3>Fácil</h3>
+          <p>Alineación simple con pocas líneas de CSS</p>
+        </div>
+        <div class="card">
+          <h3>Rápido</h3>
+          <p>Mejor rendimiento que otros métodos</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
-    function mostrar(seccion) {
-      const contenido = document.getElementById("contenido");
-      let html = "";
-
-      if (seccion === "funcionamiento") {
-        html = `
-          <h2>Funcionamiento</h2>
-          <p>Flexbox es un modelo de diseño en CSS que organiza elementos en una única dimensión. 
-          Permite distribuir el espacio automáticamente y alinear ítems incluso cuando tienen tamaños dinámicos. 
-          Se basa en un <strong>contenedor flexible</strong> y sus <strong>ítems</strong>, controlando dirección, 
-          crecimiento, reducción y orden visual.</p>
+    function cambiarContenido(seccion) {
+      const contenido = document.getElementById('contenido');
+      
+      if (seccion === 'intro') {
+        contenido.innerHTML = `
+          <h2>¿Qué es Flexbox?</h2>
+          <p>Flexbox es un método de diseño CSS que permite organizar elementos de manera flexible en una dirección (fila o columna).</p>
+          <p><strong>Principales conceptos:</strong></p>
+          <ul>
+            <li><code>display: flex</code> - Activa Flexbox</li>
+            <li><code>flex-direction</code> - Define la dirección</li>
+            <li><code>flex-grow</code> - Permite que un elemento crezca</li>
+          </ul>
         `;
-      } else if (seccion === "casos") {
-        html = `
+      } else if (seccion === 'propiedades') {
+        contenido.innerHTML = `
+          <h2>Propiedades Principales</h2>
+          <div class="features">
+            <div class="card">
+              <h3>justify-content</h3>
+              <p>Alineación horizontal</p>
+            </div>
+            <div class="card">
+              <h3>align-items</h3>
+              <p>Alineación vertical</p>
+            </div>
+            <div class="card">
+              <h3>flex-wrap</h3>
+              <p>Salto de línea</p>
+            </div>
+          </div>
+        `;
+      } else if (seccion === 'ejemplos') {
+        contenido.innerHTML = `
           <h2>Casos de Uso</h2>
-          <ul>
-            <li>Menús de navegación horizontales o verticales.</li>
-            <li>Barras de herramientas con logotipos y botones.</li>
-            <li>Centrado de contenido vertical y horizontal.</li>
-            <li>Diseño de tarjetas adaptables.</li>
-            <li>Componentes con crecimiento flexible en paneles dinámicos.</li>
-          </ul>
-        `;
-      } else if (seccion === "ventajas") {
-        html = `
-          <h2>Ventajas</h2>
-          <ul>
-            <li>Distribución dinámica del espacio entre elementos.</li>
-            <li>Permite reordenar visualmente sin cambiar el HTML.</li>
-            <li>Espaciado automático con propiedades como <code>space-between</code>.</li>
-            <li>Facilita diseños responsivos simples.</li>
-          </ul>
-        `;
-      } else if (seccion === "desventajas") {
-        html = `
-          <h2>Desventajas</h2>
-          <ul>
-            <li>Limitación unidimensional (solo filas o columnas).</li>
-            <li>Problemas en navegadores antiguos como Internet Explorer.</li>
-            <li>Complejo de mantener en estructuras con muchos contenedores anidados.</li>
-          </ul>
+          <p>Menús de navegación<br>
+          Layouts de dos columnas<br>
+          Centrado de elementos<br>
+          Distribución de tarjetas</p>
         `;
       }
-
-      contenido.innerHTML = html;
     }
   </script>
 </body>
