@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actividad 7 - CSS Grid</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #eaf3fc;
+    }
+
+    header {
+      grid-area: header;
+      background: #1e73be;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      grid-template-rows: auto 1fr;
+      grid-template-areas:
+        "header header"
+        "sidebar main";
+      height: 100vh;
+    }
+
+    nav {
+      grid-area: sidebar;
+      background: #2d89cf;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    nav button {
+      background: #1e73be;
+      border: none;
+      color: white;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    nav button:hover {
+      background: #155d9c;
+    }
+
+    main {
+      grid-area: main;
+      background: white;
+      padding: 30px;
+      overflow-y: auto;
+      border-radius: 8px 0 0 8px;
+    }
+
+    main h2 {
+      margin-top: 0;
+      color: #1e73be;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid">
+    <header>Actividad 7 - CSS Grid</header>
+
+    <nav>
+      <button onclick="mostrar('funcionamiento')">Funcionamiento</button>
+      <button onclick="mostrar('casos')">Casos de Uso</button>
+      <button onclick="mostrar('ventajas')">Ventajas</button>
+      <button onclick="mostrar('desventajas')">Desventajas</button>
+    </nav>
+
+    <main id="contenido">
+      <h2>Bienvenido</h2>
+      <p>Seleccioná un apartado en el menú de la izquierda para ver la información sobre <strong>CSS Grid</strong>.</p>
+    </main>
+  </div>
+
+  <script>
+    function mostrar(seccion) {
+      const contenido = document.getElementById("contenido");
+      let html = "";
+
+      if (seccion === "funcionamiento") {
+        html = `
+          <h2>Funcionamiento</h2>
+          <p>El CSS Grid es un sistema de diseño bidimensional que organiza los elementos en filas y columnas. 
+          A través de <code>display: grid</code>, <code>grid-template-rows</code> y <code>grid-template-columns</code>, 
+          se definen estructuras que permiten ubicar ítems en posiciones específicas de la rejilla.</p>
+        `;
+      } else if (seccion === "casos") {
+        html = `
+          <h2>Casos de Uso</h2>
+          <ul>
+            <li>Diseño integral de la página (encabezado, menú, contenido, pie).</li>
+            <li>Interfaces responsivas para distintos dispositivos.</li>
+            <li>Galerías de imágenes o portafolios.</li>
+            <li>Paneles de control y dashboards con múltiples bloques de información.</li>
+          </ul>
+        `;
+      } else if (seccion === "ventajas") {
+        html = `
+          <h2>Ventajas</h2>
+          <ul>
+            <li>Organización integral del espacio (filas y columnas a la vez).</li>
+            <li>Alta adaptabilidad con unidades como <code>fr</code> y <code>minmax()</code>.</li>
+            <li>Código más claro y fácil de mantener.</li>
+            <li>Flexibilidad para ubicar elementos en distintas áreas sin depender del HTML.</li>
+            <li>Compatibilidad en la mayoría de navegadores modernos.</li>
+          </ul>
+        `;
+      } else if (seccion === "desventajas") {
+        html = `
+          <h2>Desventajas</h2>
+          <ul>
+            <li>Mayor complejidad inicial al aprenderlo.</li>
+            <li>Problemas de compatibilidad con navegadores antiguos.</li>
+            <li>Puede ser sobrediseño en estructuras muy simples.</li>
+            <li>Requiere planificación previa para aprovechar su potencial.</li>
+          </ul>
+        `;
+      }
+
+      contenido.innerHTML = html;
+    }
+  </script>
+</body>
+</html>
