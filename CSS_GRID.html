@@ -3,135 +3,195 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Actividad 7 - CSS Grid</title>
+  <title>CSS Grid</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #eaf3fc;
+      background: #f8f9fa;
+    }
+
+    /* Contenedor principal con CSS Grid */
+    .container {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      grid-template-rows: 80px 1fr;
+      grid-template-areas:
+        "header header"
+        "sidebar content";
+      height: 100vh;
+      gap: 10px;
+      padding: 10px;
     }
 
     header {
       grid-area: header;
-      background: #1e73be;
+      background: #6c5ce7;
       color: white;
-      padding: 20px;
-      text-align: center;
-      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      font-size: 24px;
       font-weight: bold;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: 250px 1fr;
-      grid-template-rows: auto 1fr;
-      grid-template-areas:
-        "header header"
-        "sidebar main";
-      height: 100vh;
-    }
-
-    nav {
+    .sidebar {
       grid-area: sidebar;
-      background: #2d89cf;
+      background: #74b9ff;
       padding: 20px;
+      border-radius: 10px;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 10px;
     }
 
-    nav button {
-      background: #1e73be;
-      border: none;
+    .btn {
+      background: #0984e3;
       color: white;
+      border: none;
       padding: 12px;
       border-radius: 6px;
-      font-size: 16px;
       cursor: pointer;
-      transition: background 0.3s;
+      font-size: 14px;
+      transition: all 0.3s;
     }
 
-    nav button:hover {
-      background: #155d9c;
+    .btn:hover {
+      background: #2d3436;
+      transform: scale(1.05);
     }
 
-    main {
-      grid-area: main;
+    .content {
+      grid-area: content;
       background: white;
       padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       overflow-y: auto;
-      border-radius: 8px 0 0 8px;
     }
 
-    main h2 {
+    .content h2 {
+      color: #6c5ce7;
       margin-top: 0;
-      color: #1e73be;
+    }
+
+    /* Grid de tarjetas dentro del contenido */
+    .grid-demo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #6c5ce7, #74b9ff);
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 18px;
     }
   </style>
 </head>
 <body>
-  <div class="grid">
-    <header>Actividad 7 - CSS Grid</header>
+  <div class="container">
+    <header>CSS Grid</header>
 
-    <nav>
-      <button onclick="mostrar('funcionamiento')">Funcionamiento</button>
-      <button onclick="mostrar('casos')">Casos de Uso</button>
-      <button onclick="mostrar('ventajas')">Ventajas</button>
-      <button onclick="mostrar('desventajas')">Desventajas</button>
-    </nav>
+    <div class="sidebar">
+      <button class="btn" onclick="cambiarContenido('intro')">¿Qué es Grid?</button>
+      <button class="btn" onclick="cambiarContenido('areas')">Grid Areas</button>
+      <button class="btn" onclick="cambiarContenido('responsive')">Responsive</button>
+    </div>
 
-    <main id="contenido">
-      <h2>Bienvenido</h2>
-      <p>Seleccioná un apartado en el menú de la izquierda para ver la información sobre <strong>CSS Grid</strong>.</p>
-    </main>
+    <div class="content" id="contenido">
+      <h2>¡Actividad 7!</h2>
+      <p>Este layout usa <strong>CSS Grid</strong> para crear una estructura bidimensional perfecta.</p>
+      
+      <div class="grid-demo">
+        <div class="card">
+          <h3>2D Layout</h3>
+          <p>Filas y columnas simultáneas</p>
+        </div>
+        <div class="card">
+          <h3>Grid Areas</h3>
+          <p>Nombres semánticos para áreas</p>
+        </div>
+        <div class="card">
+          <h3>Responsive</h3>
+          <p>Auto-fit y minmax()</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
-    function mostrar(seccion) {
-      const contenido = document.getElementById("contenido");
-      let html = "";
-
-      if (seccion === "funcionamiento") {
-        html = `
-          <h2>Funcionamiento</h2>
-          <p>El CSS Grid es un sistema de diseño bidimensional que organiza los elementos en filas y columnas. 
-          A través de <code>display: grid</code>, <code>grid-template-rows</code> y <code>grid-template-columns</code>, 
-          se definen estructuras que permiten ubicar ítems en posiciones específicas de la rejilla.</p>
-        `;
-      } else if (seccion === "casos") {
-        html = `
-          <h2>Casos de Uso</h2>
+    function cambiarContenido(seccion) {
+      const contenido = document.getElementById('contenido');
+      
+      if (seccion === 'intro') {
+        contenido.innerHTML = `
+          <h2>¿Qué es CSS Grid?</h2>
+          <p>CSS Grid es un sistema de layout bidimensional que permite crear estructuras complejas con filas y columnas.</p>
+          <p><strong>Propiedades clave:</strong></p>
           <ul>
-            <li>Diseño integral de la página (encabezado, menú, contenido, pie).</li>
-            <li>Interfaces responsivas para distintos dispositivos.</li>
-            <li>Galerías de imágenes o portafolios.</li>
-            <li>Paneles de control y dashboards con múltiples bloques de información.</li>
+            <li><code>display: grid</code> - Activa Grid</li>
+            <li><code>grid-template-columns/rows</code> - Define estructura</li>
+            <li><code>grid-template-areas</code> - Nombra áreas</li>
           </ul>
+          <p><em>¡Esta misma página usa Grid para organizarse!</em></p>
         `;
-      } else if (seccion === "ventajas") {
-        html = `
-          <h2>Ventajas</h2>
-          <ul>
-            <li>Organización integral del espacio (filas y columnas a la vez).</li>
-            <li>Alta adaptabilidad con unidades como <code>fr</code> y <code>minmax()</code>.</li>
-            <li>Código más claro y fácil de mantener.</li>
-            <li>Flexibilidad para ubicar elementos en distintas áreas sin depender del HTML.</li>
-            <li>Compatibilidad en la mayoría de navegadores modernos.</li>
-          </ul>
+      } else if (seccion === 'areas') {
+        contenido.innerHTML = `
+          <h2>Grid Template Areas</h2>
+          <p>Las <strong>grid areas</strong> permiten nombrar secciones del layout:</p>
+          <pre style="background: #f1f3f4; padding: 15px; border-radius: 5px; font-size: 14px;">
+grid-template-areas:
+  "header header"
+  "sidebar content";</pre>
+          <p>Cada elemento se posiciona con <code>grid-area: nombre</code></p>
+          <div class="grid-demo">
+            <div class="card">
+              <h3>Header</h3>
+              <p>Ocupa toda la fila superior</p>
+            </div>
+            <div class="card">
+              <h3>Sidebar</h3>
+              <p>Columna izquierda</p>
+            </div>
+            <div class="card">
+              <h3>Content</h3>
+              <p>Área principal</p>
+            </div>
+          </div>
         `;
-      } else if (seccion === "desventajas") {
-        html = `
-          <h2>Desventajas</h2>
+      } else if (seccion === 'responsive') {
+        contenido.innerHTML = `
+          <h2>Grid Responsivo</h2>
+          <p>CSS Grid incluye funciones poderosas para diseños adaptativos:</p>
           <ul>
-            <li>Mayor complejidad inicial al aprenderlo.</li>
-            <li>Problemas de compatibilidad con navegadores antiguos.</li>
-            <li>Puede ser sobrediseño en estructuras muy simples.</li>
-            <li>Requiere planificación previa para aprovechar su potencial.</li>
+            <li><code>repeat(auto-fit, minmax(200px, 1fr))</code></li>
+            <li><code>fr</code> - Unidad fraccionaria</li>
+            <li><code>minmax()</code> - Tamaño mínimo y máximo</li>
           </ul>
+          <p><strong>¡Las tarjetas de abajo se reorganizan automáticamente!</strong></p>
+          <div class="grid-demo">
+            <div class="card"><h3></h3><p>Mobile</p></div>
+            <div class="card"><h3></h3><p>Tablet</p></div>
+            <div class="card"><h3></h3><p>Desktop</p></div>
+            <div class="card"><h3></h3><p>TV</p></div>
+          </div>
         `;
       }
-
-      contenido.innerHTML = html;
     }
   </script>
 </body>
